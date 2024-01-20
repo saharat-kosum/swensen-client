@@ -3,7 +3,7 @@ import SwensenIcon from "./swensen-icon";
 
 function Footer() {
   return (
-    <section className="fixed bottom-0 w-full">
+    <section className="bottom-0 w-full z-50">
       <footer className="flex p-6 bg-[#e21c23] items-center flex-col lg:flex-row gap-5">
         <SwensenIcon />
         <div className="lg:ms-auto">
