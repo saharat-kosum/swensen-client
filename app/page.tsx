@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Home() {
   const slides = ['/superdeal_1.jpg', '/superdeal_2.png', '/superdeal_3.png', '/superdeal_4.jpg']
   return (
-    <main className="pt-[102px] lg:pt-[72px] min-h-full">
+    <main className="pt-[102px] lg:pt-[72px] grow">
       <div className="xl:py-24 pt-5 pb-20 bg-gradient-to-b from-[#ff807c] to-[#fd4b47]">
         <div className="container flex w-full mx-auto max-w-[1200px] px-3.5 lg:flex-row flex-col-reverse">
           <div className="grow basis-2/4 text-white">
