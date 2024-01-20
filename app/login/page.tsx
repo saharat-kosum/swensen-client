@@ -17,7 +17,8 @@ function LoginPage() {
               <label htmlFor="password" className="text-gray-600">Password</label>
               <input id="password" name="password" type="password" placeholder="Password" className="border-[1px] p-3 rounded-lg outline-0 text-gray-500 mt-2 w-full" required />
             </div>
-            <button type="submit" className="text-center w-full rounded-full h-12 bg-[#e21c23] text-white text-sm" >Register</button>
+            <p className="text-[#e21c23] ms-auto mb-5 hover:cursor-pointer w-fit">Forgot password?</p>
+            <button type="submit" className="text-center w-full rounded-full h-12 bg-[#e21c23] text-white text-sm" >Login</button>
           </form>
         </div>
       </div>
