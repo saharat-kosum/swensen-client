@@ -8,27 +8,13 @@ function Footer() {
         <SwensenIcon />
         <div className="lg:ms-auto">
           <ul className="flex font-semibold xl:text-xl text-white flex-wrap justify-center">
-            <li className="mx-3 hover:cursor-pointer">
-              Brandsite
-            </li>
-            <li className="mx-3 hover:cursor-pointer">
-              Privilege
-            </li>
-            <li className="mx-3 hover:cursor-pointer">
-              Reward
-            </li>
-            <li className="mx-3 hover:cursor-pointer">
-              My Coupons
-            </li>
-            <li className="mx-3 hover:cursor-pointer">
-              Gift Voucher
-            </li>
-            <li className="mx-3 hover:cursor-pointer">
-              Member Card
-            </li>
-            <li className="mx-3 hover:cursor-pointer">
-              My Account
-            </li>
+            <li className="mx-3 hover:cursor-pointer">Brandsite</li>
+            <li className="mx-3 hover:cursor-pointer">Privilege</li>
+            <li className="mx-3 hover:cursor-pointer">Reward</li>
+            <li className="mx-3 hover:cursor-pointer">My Coupons</li>
+            <li className="mx-3 hover:cursor-pointer">Gift Voucher</li>
+            <li className="mx-3 hover:cursor-pointer">Member Card</li>
+            <li className="mx-3 hover:cursor-pointer">My Account</li>
           </ul>
         </div>
       </footer>
@@ -70,7 +56,7 @@ function Footer() {
         </div>
       </footer>
     </section>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

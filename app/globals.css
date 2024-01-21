@@ -22,7 +22,7 @@ html {
   overflow-x: hidden;
 }
 
-input[type="radio"]:checked+label {
+input[type="radio"]:checked + label {
   background-color: #f5222d;
   color: #fff;
 }

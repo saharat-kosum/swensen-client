@@ -1,5 +1,5 @@
 export interface UserType {
-  id: number
+  id?: number
   first_name: String
   last_name: String
   phone: String
