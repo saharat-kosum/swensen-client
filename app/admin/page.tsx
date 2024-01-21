@@ -6,6 +6,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import Loading from "@/components/loading";
 import ProductCard from "@/components/productCard";
+import { useRouter } from "next/navigation";
 
 const defaultProduct = {
   name: "",
@@ -20,9 +21,15 @@ function AdminPage() {
   const [allProduct, setAllProduct] = useState<ProductType[]>([]);
   const prefixURL = process.env.NEXT_PUBLIC_PREFIX_URL;
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    getProduct();
+    const token = sessionStorage.getItem("userToken");
+    if (token && token.length > 0) {
+      getProduct();
+    } else {
+    router.push("/");
+    }
   }, []);
 
   const productChangeHandle = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -15,13 +15,16 @@ function NavBar() {
     const token = sessionStorage.getItem("userToken");
     if (token && token.length > 0) {
       setIsLogin(true);
+    } else {
+      setIsLogin(false);
     }
   }, [pathname]);
 
   const logOutHandle = () => {
     sessionStorage.removeItem("userToken");
     router.push("/");
-    window.location.reload();
+    setIsSideNavOpen(false);
+    setIsLogin(false);
   };
 
   return (

@@ -17,7 +17,7 @@ function ProductCard({
   setCurrentProduct,
 }: ProductCardProps) {
   return (
-    <div className="max-w-[290px] w-full rounded-xl overflow-hidden">
+    <div className="max-w-[290px] w-full rounded-xl overflow-hidden h-fit">
       <div className=" bg-[url('/productCover.png')] bg-cover bg-center min-h-[180px]"></div>
       <div className="bg-white p-4">
         <h1 className="mb-4 text-xl font-semibold">{product.name}</h1>

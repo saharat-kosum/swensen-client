@@ -24,7 +24,7 @@ function LoginPage() {
       );
       if (response.status === 200) {
         sessionStorage.setItem("userToken", response.data);
-        router.push("/");
+        router.push("/admin");
       }
     } catch (err) {
       console.error(err);
