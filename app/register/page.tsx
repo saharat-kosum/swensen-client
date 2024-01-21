@@ -1,10 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { UserType } from "../type";
+import Loading from "@/components/loading";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const defaultFormData: UserType = {
-  date_of_birth: "",
+  date_of_birth: null,
   first_name: "",
   last_name: "",
   email: "",
@@ -16,21 +20,57 @@ const defaultFormData: UserType = {
 function RegisterPage() {
   const prefixURL = process.env.NEXT_PUBLIC_PREFIX_URL;
   const [registerData, setRegisterData] = useState<UserType>(defaultFormData);
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
-  useEffect(() => {
-    console.log(dateOfBirth);
-  }, [dateOfBirth]);
+  const registerHandle = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      setIsLoading(true);
+      const response = await axios.post(
+        `${prefixURL}/auth/register`,
+        registerData
+      );
+      if (response.status === 201) {
+        Swal.fire({
+          title: "Register Complete",
+          icon: "success",
+        }).then(() => {
+          router.push("/login");
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      if (axios.isAxiosError(err)) {
+        Swal.fire({
+          title: "Register Failed",
+          text: err.response?.data.error,
+          icon: "error",
+        });
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const changeHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setRegisterData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   return (
     <main className="pt-[102px] lg:pt-[72px] grow max-w-[512px] mx-auto px-4">
+      {isLoading && <Loading />}
       <div className="my-8 bg-white rounded-lg overflow-hidden">
         <div className="bg-[url('/card-head.png')] h-60 p-10 flex flex-col justify-center text-white bg-cover bg-center">
           <h1 className="text-3xl font-medium">Register</h1>
           <p className="text-sm">Register to start your sweet journey</p>
         </div>
         <div className="px-3 py-6 sm:px-10">
-          <form className="text-sm">
+          <form className="text-sm" onSubmit={(e) => registerHandle(e)}>
             <div className="mb-5 flex gap-3">
               <div>
                 <label htmlFor="first_name" className="text-gray-600">
@@ -42,6 +82,8 @@ function RegisterPage() {
                   type="text"
                   placeholder="First Name"
                   className="border-[1px] p-3 rounded-lg outline-0 text-gray-500 mt-2 w-full"
+                  value={registerData.first_name}
+                  onChange={(e) => changeHandle(e)}
                   required
                 />
               </div>
@@ -55,6 +97,8 @@ function RegisterPage() {
                   type="text"
                   placeholder="Last Name"
                   className="border-[1px] p-3 rounded-lg outline-0 text-gray-500 mt-2 w-full"
+                  value={registerData.last_name}
+                  onChange={(e) => changeHandle(e)}
                   required
                 />
               </div>
@@ -70,6 +114,8 @@ function RegisterPage() {
                 maxLength={10}
                 placeholder="10-digit mobile number"
                 className="border-[1px] p-3 rounded-lg outline-0 text-gray-500 mt-2 w-full"
+                value={registerData.phone}
+                onChange={(e) => changeHandle(e)}
                 required
               />
             </div>
@@ -83,6 +129,8 @@ function RegisterPage() {
                 type="email"
                 placeholder="Enter email"
                 className="border-[1px] p-3 rounded-lg outline-0 text-gray-500 mt-2 w-full"
+                value={registerData.email}
+                onChange={(e) => changeHandle(e)}
                 required
               />
             </div>
@@ -100,6 +148,8 @@ function RegisterPage() {
                 type="password"
                 placeholder="Password"
                 className="border-[1px] p-3 rounded-lg outline-0 text-gray-500 mt-2 w-full"
+                value={registerData.password}
+                onChange={(e) => changeHandle(e)}
                 required
               />
             </div>
@@ -112,6 +162,7 @@ function RegisterPage() {
                   type="radio"
                   className="hidden"
                   value={"male"}
+                  onChange={(e) => changeHandle(e)}
                 />
                 <label
                   htmlFor="male"
@@ -125,6 +176,7 @@ function RegisterPage() {
                   type="radio"
                   className="hidden"
                   value={"female"}
+                  onChange={(e) => changeHandle(e)}
                 />
                 <label
                   htmlFor="female"
@@ -138,6 +190,7 @@ function RegisterPage() {
                   type="radio"
                   className="hidden"
                   value={"not-specified"}
+                  onChange={(e) => changeHandle(e)}
                 />
                 <label
                   htmlFor="not-specified"
@@ -156,8 +209,8 @@ function RegisterPage() {
                 name="date_of_birth"
                 type="date"
                 className="border-[1px] p-3 rounded-lg outline-0 text-gray-500 mt-2 w-full"
-                value={dateOfBirth}
-                onChange={(e) => setDateOfBirth(e.target.value)}
+                value={registerData.date_of_birth || ""}
+                onChange={(e) => changeHandle(e)}
               />
             </div>
             <div className="mb-3 flex items-start">

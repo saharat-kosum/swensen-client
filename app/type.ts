@@ -1,17 +1,17 @@
 export interface UserType {
   id?: number
-  first_name: String
-  last_name: String
-  phone: String
-  email: String
-  password: String
-  date_of_birth: String | null
-  gender: String | null
+  first_name: string
+  last_name: string
+  phone: string
+  email: string
+  password: string
+  date_of_birth: string | null
+  gender: string
 }
 
 export interface ProductType {
   id: number
-  name: String
+  name: string
   price: number
-  description: String | null
+  description: string | null
 }
