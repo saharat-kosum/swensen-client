@@ -232,7 +232,7 @@ function RegisterPage() {
                   {" "}
                   privacy policy{" "}
                 </span>
-                of Swensen's.
+                of Swensen&apos;s.
               </label>
             </div>
             <div className="mb-5 flex items-start">
@@ -244,7 +244,7 @@ function RegisterPage() {
               />
               <label htmlFor="receive_info" className="text-gray-600">
                 I agree to receive the information including other marketing
-                activities from Swensen's and
+                activities from Swensen&apos;s and
                 <span className="text-[#f5222d] hover:cursor-pointer">
                   {" "}
                   affiliated companies{" "}
@@ -254,7 +254,7 @@ function RegisterPage() {
                   {" "}
                   privacy policy{" "}
                 </span>
-                from company's website.
+                from company&apos;s website.
               </label>
             </div>
             <button

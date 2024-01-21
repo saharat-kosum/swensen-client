@@ -27,7 +27,7 @@ export default function Carousel({ slides }: CarouselProps) {
         }}
       >
         {slides.map((s, i) => (
-          <img src={s} key={i} />
+          <img src={s} key={i} alt="corousel" />
         ))}
       </div>
 
