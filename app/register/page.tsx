@@ -57,7 +57,7 @@ function RegisterPage() {
     const { name, value } = event.target;
     setRegisterData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: value.trim(),
     }));
   };
 

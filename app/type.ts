@@ -10,8 +10,7 @@ export interface UserType {
 }
 
 export interface ProductType {
-  id: number
+  id?: number
   name: string
   price: number
-  description: string | null
 }

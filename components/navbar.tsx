@@ -28,6 +28,7 @@ function NavBar() {
     <section className="lg:h-[72px] h-[102px] bg-white shadow-md flex fixed ps-[24px] w-full top-0 flex-col z-50">
       <div className="flex justify-between lg:justify-normal w-full grow">
         <div className="lg:hidden flex items-center">
+          {/* QR code Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -46,6 +47,7 @@ function NavBar() {
         </Link>
         <div className="ms-auto lg:flex hidden">
           <div className="flex justify-center items-center text-[#787878] border-x-[1px] w-[328px] px-7 font-semibold me-6 hover:text-[#e21c23] hover:cursor-pointer">
+            {/* Location Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -59,6 +61,7 @@ function NavBar() {
               />
             </svg>
             <p>Select delivery address</p>
+            {/* Arrow down Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -76,6 +79,7 @@ function NavBar() {
             <>
               <div className="flex flex-col justify-center">
                 <div className="hover:cursor-pointer flex justify-center items-center gap-1 text-sm me-6 min-w-[110px] h-[48px] text-center rounded-[50px] leading-[46px] font-light border-[1px] border-[#e21c23] text-[#e21c23]">
+                  {/* QR Code Icon */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -99,6 +103,7 @@ function NavBar() {
                 </div>
               </div>
               <div className="flex flex-col justify-center border-s-[1px] px-5">
+                {/* Bag Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -115,6 +120,7 @@ function NavBar() {
                 </svg>
               </div>
               <div className="flex flex-col justify-center border-s-[1px] px-5">
+                {/* Heart Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -131,6 +137,7 @@ function NavBar() {
                 </svg>
               </div>
               <div className="flex flex-col justify-center border-s-[1px] px-5">
+                {/* Message Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -148,6 +155,7 @@ function NavBar() {
               </div>
               <div className="flex items-center gap-2 text-[#787878] border-s-[1px] px-6 hover:text-[#e21c23] hover:cursor-pointer font-semibold">
                 EN
+                {/* Arrow Down Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -162,6 +170,7 @@ function NavBar() {
                 </svg>
               </div>
               <div className="flex flex-col justify-center border-s-[1px] px-5">
+                {/* Three Bar Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -199,6 +208,7 @@ function NavBar() {
               </div>
               <div className="flex items-center gap-2 text-[#787878] border-s-[1px] px-6 hover:text-[#e21c23] hover:cursor-pointer font-semibold">
                 EN
+                {/* Arrow Down Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -217,6 +227,7 @@ function NavBar() {
         </div>
         <div className="lg:hidden flex items-center me-6 gap-4">
           <div>
+            {/* Bag Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -233,6 +244,7 @@ function NavBar() {
             </svg>
           </div>
           <div onClick={() => setIsSideNavOpen(true)}>
+            {/* Three Bar Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -252,6 +264,7 @@ function NavBar() {
       </div>
       <div className="lg:hidden leading-9">
         <div className="flex items-center text-[#787878] w-fit font-semibold me-6 hover:text-[#e21c23] hover:cursor-pointer">
+          {/* Location Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -265,6 +278,7 @@ function NavBar() {
             />
           </svg>
           <p>Select delivery address</p>
+          {/* Arrow Down Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -298,6 +312,7 @@ function NavBar() {
                 className="hover:cursor-pointer w-fit"
                 onClick={() => setIsSideNavOpen(false)}
               >
+                {/* X Icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -319,6 +334,7 @@ function NavBar() {
               {isLogin ? (
                 <div className="text-gray-500 text-sm">
                   <div className="flex gap-3 mb-8 hover:text-[#e21c23] hover:cursor-pointer">
+                    {/* Message Icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -336,6 +352,7 @@ function NavBar() {
                     <>Message</>
                   </div>
                   <div className="flex gap-3 mb-8 hover:text-[#e21c23] hover:cursor-pointer">
+                    {/* Order Icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -353,6 +370,7 @@ function NavBar() {
                     <>Order</>
                   </div>
                   <div className="flex gap-3 mb-8 hover:text-[#e21c23] hover:cursor-pointer">
+                    {/* Star Icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -370,6 +388,7 @@ function NavBar() {
                     <>Privileges</>
                   </div>
                   <div className="flex gap-3 mb-8 hover:text-[#e21c23] hover:cursor-pointer">
+                    {/* Card Icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -387,6 +406,7 @@ function NavBar() {
                     <>Member Card</>
                   </div>
                   <div className="flex gap-3 mb-8 hover:text-[#e21c23] hover:cursor-pointer">
+                    {/* Profile Icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -408,6 +428,7 @@ function NavBar() {
                     onClick={() => setIsSideNavOpen(false)}
                     className="flex gap-3 mb-8 hover:text-[#e21c23]"
                   >
+                    {/* Add Icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -428,6 +449,7 @@ function NavBar() {
                     className="flex gap-3 mb-8 hover:text-[#e21c23] hover:cursor-pointer"
                     onClick={logOutHandle}
                   >
+                    {/* Power off Icon */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"

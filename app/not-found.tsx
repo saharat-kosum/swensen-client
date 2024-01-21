@@ -2,6 +2,7 @@ export default function NotFound() {
   return (
     <main className="pt-[102px] lg:pt-[72px] flex items-center justify-center grow">
       <div>
+        {/* Not found Icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
