@@ -2,7 +2,7 @@
 
 ## Tech stack
 
-**Frontend **
+**Frontend**
 
 - Next.Js
 

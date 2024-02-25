@@ -7,10 +7,13 @@ export interface UserType {
   password: string
   date_of_birth: string | null
   gender: string
+  create_ts: Date
 }
 
 export interface ProductType {
   id?: number
   name: string
   price: number
+  create_ts: Date
+  modify_ts: Date
 }
