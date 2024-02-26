@@ -17,3 +17,8 @@ export interface ProductType {
   create_ts: Date
   modify_ts: Date
 }
+
+export interface AddPostPayload {
+  name: string
+  price: number
+}
