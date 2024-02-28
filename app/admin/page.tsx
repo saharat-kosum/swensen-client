@@ -11,6 +11,9 @@ import { useRouter } from "next/navigation";
 const defaultProduct = {
   name: "",
   price: 1,
+  usersId: "",
+  create_ts: new Date(),
+  modify_ts: new Date(),
 };
 
 function AdminPage() {
@@ -28,7 +31,7 @@ function AdminPage() {
     if (token && token.length > 0) {
       getProduct();
     } else {
-    router.push("/");
+      router.push("/");
     }
   }, []);
 
@@ -142,7 +145,7 @@ function AdminPage() {
     }
   };
 
-  const deleteProduct = async (id: number) => {
+  const deleteProduct = async (id: string) => {
     Swal.fire({
       title: "Are you sure to delete this product ?",
       showDenyButton: true,

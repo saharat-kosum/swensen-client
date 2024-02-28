@@ -15,6 +15,7 @@ const defaultFormData: UserType = {
   password: "",
   gender: "not-specified",
   phone: "",
+  create_ts: new Date(),
 };
 
 function RegisterPage() {
