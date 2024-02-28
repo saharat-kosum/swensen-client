@@ -33,7 +33,7 @@ export async function POST(request: Request) {
         gender,
       },
     });
-    return Response.json(registerUser);
+    return Response.json(registerUser,{ status: 201 });
   } catch (error) {
     console.error("Create user error: ", error);
     return Response.json({ error: "Internal server error" }, { status: 500 });
