@@ -1,3 +1,4 @@
+import { getJWTsecretKey } from "@/utils/auth";
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 
@@ -14,10 +15,10 @@ export async function POST(request: Request) {
       return Response.json({ error: "User does not exist." }, { status: 404 });
     }
 
-    if (user.password === password && process.env.JWT_SECRET) {
+    if (user.password === password) {
       const token = jwt.sign(
         { id: user.id, email: user.email },
-        process.env.JWT_SECRET
+        getJWTsecretKey()
       );
       return Response.json(token);
     } else {
