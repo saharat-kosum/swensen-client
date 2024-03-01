@@ -1,10 +1,11 @@
 import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 
 export const isLogin = () => {
-  const token = sessionStorage.getItem("userToken");
-  if (token && token.length > 0) {
+  const token = cookies().get("userToken");
+  if (token && token.value) {
     try {
-      jwt.verify(token, getJWTsecretKey());
+      jwt.verify(token.value, getJWTsecretKey());
       return true;
     } catch (error) {
       console.error("Verify JWT Token failed :", error);
