@@ -4,27 +4,44 @@ import SwensenIconHead from "./swensen-icon-head";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function NavBar() {
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const prefixURL = process.env.NEXT_PUBLIC_PREFIX_URL;
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    const token = sessionStorage.getItem("userToken");
-    if (token && token.length > 0) {
+    const token = document.cookie.includes("userToken");
+    if (token) {
+      console.log("token :", token);
       setIsLogin(true);
     } else {
+      console.log("token :", token);
       setIsLogin(false);
     }
   }, [pathname]);
 
-  const logOutHandle = () => {
-    sessionStorage.removeItem("userToken");
-    router.push("/");
-    setIsSideNavOpen(false);
-    setIsLogin(false);
+  const logOutHandle = async () => {
+    try {
+      const response = await axios.post(`${prefixURL}/auth/logout`);
+      if (response.status === 200) {
+        router.push("/");
+        setIsSideNavOpen(false);
+      }
+    } catch (error) {
+      console.error(error);
+      if (axios.isAxiosError(error)) {
+        Swal.fire({
+          title: "Log out Failed",
+          text: error.response?.data.error,
+          icon: "error",
+        });
+      }
+    }
   };
 
   return (

@@ -1,6 +1,7 @@
 import { getJWTsecretKey } from "@/utils/auth";
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 
 const prisma = new PrismaClient();
 
@@ -20,6 +21,7 @@ export async function POST(request: Request) {
         { id: user.id, email: user.email },
         getJWTsecretKey()
       );
+      cookies().set("userToken", token);
       return Response.json(token);
     } else {
       return Response.json({ error: "Invalid password." }, { status: 400 });

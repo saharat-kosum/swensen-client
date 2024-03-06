@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import Loading from "@/components/loading";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { cookies } from "next/headers";
 
 function LoginPage() {
   const prefixURL = process.env.NEXT_PUBLIC_PREFIX_URL;
@@ -24,7 +23,6 @@ function LoginPage() {
         loginPayload
       );
       if (response.status === 200) {
-        cookies().set("userToken", response.data);
         router.push("/admin");
       }
     } catch (err) {
