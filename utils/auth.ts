@@ -2,18 +2,10 @@ import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
 export const isLogin = async () => {
-  const token = cookies().get("userToken");
-  if (token && token.value) {
-    try {
-      const secretKey = getJwtSecretKeyJose();
-      await jwtVerify(token.value, secretKey);
-      return true;
-    } catch (error) {
-      console.error("Verify JWT Token failed :", error);
-      return false;
-    }
+  const token = await verifyToken();
+  if (token) {
+    return true;
   } else {
-    console.log("No token");
     return false;
   }
 };
@@ -35,4 +27,21 @@ export function getJwtSecretKeyJose() {
 
   const enc: Uint8Array = new TextEncoder().encode(secret);
   return enc;
+}
+
+export async function verifyToken() {
+  const token = cookies().get("userToken");
+  if (token && token.value) {
+    try {
+      const secretKey = getJwtSecretKeyJose();
+      const { payload } = await jwtVerify(token.value, secretKey);
+      return payload;
+    } catch (error) {
+      console.error("Verify JWT Token failed :", error);
+      return null;
+    }
+  } else {
+    console.log("No token");
+    return null;
+  }
 }

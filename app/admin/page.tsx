@@ -67,10 +67,7 @@ function AdminPage() {
 
     setIsLoading(true);
     try {
-      const response = await axios.post(
-        `${prefixURL}/product/add`,
-        currentProduct
-      );
+      const response = await axios.post(`${prefixURL}/product`, currentProduct);
       if (response.status === 201) {
         Swal.fire({
           title: "Add Product Complete",
@@ -106,7 +103,7 @@ function AdminPage() {
       setIsLoading(true);
       try {
         const response = await axios.put(
-          `${prefixURL}/product/${currentProduct.id}/update`,
+          `${prefixURL}/product/${currentProduct.id}`,
           currentProduct
         );
         if (response.status === 200) {
@@ -149,7 +146,7 @@ function AdminPage() {
       if (result.isConfirmed) {
         setIsLoading(true);
         axios
-          .delete(`${prefixURL}/product/${id}/delete`)
+          .delete(`${prefixURL}/product/${id}`)
           .then((response) => {
             if (response.status === 200) {
               Swal.fire({
