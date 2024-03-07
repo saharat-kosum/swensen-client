@@ -6,8 +6,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { loginAction } from "./action";
 import { useFormState } from "react-dom";
+import SubmitBtn from "./submitBtn";
 
 const initialState = {
+  email: "",
+  password: "",
   message: "",
 };
 
@@ -80,8 +83,10 @@ function LoginPage() {
                 className="border-[1px] p-3 rounded-lg outline-0 text-gray-500 mt-2 w-full"
                 value={loginPayload.email}
                 onChange={(e) => changeHandle(e)}
-                required
               />
+              <p className="text-[#e21c23] me-auto mb-5 hover:cursor-pointer w-fit p-1 text-xs">
+                {state?.email}
+              </p>
             </div>
             <div className="mb-5">
               <label htmlFor="password" className="text-gray-600">
@@ -95,21 +100,18 @@ function LoginPage() {
                 className="border-[1px] p-3 rounded-lg outline-0 text-gray-500 mt-2 w-full"
                 value={loginPayload.password}
                 onChange={(e) => changeHandle(e)}
-                required
               />
+              <p className="text-[#e21c23] me-auto mb-5 hover:cursor-pointer w-fit p-1 text-xs">
+                {state?.password}
+              </p>
             </div>
-            <p className="text-[#e21c23] me-auto mb-5 hover:cursor-pointer w-fit">
+            <p className="text-[#e21c23] m-auto mb-5 hover:cursor-pointer w-fit p-1 text-xs">
               {state?.message}
             </p>
             <p className="text-[#e21c23] ms-auto mb-5 hover:cursor-pointer w-fit">
               Forgot password?
             </p>
-            <button
-              type="submit"
-              className="text-center w-full rounded-full h-12 bg-[#e21c23] text-white text-sm"
-            >
-              Login
-            </button>
+            <SubmitBtn />
           </form>
         </div>
       </div>
