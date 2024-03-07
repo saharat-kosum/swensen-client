@@ -4,11 +4,18 @@ import { useRouter } from "next/navigation";
 import Loading from "@/components/loading";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { loginAction } from "./action";
+import { useFormState } from "react-dom";
+
+const initialState = {
+  message: "",
+};
 
 function LoginPage() {
   const prefixURL = process.env.NEXT_PUBLIC_PREFIX_URL;
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const [state, formAction] = useFormState(loginAction, initialState);
   const [loginPayload, setLoginPayload] = useState({
     email: "",
     password: "",
@@ -56,7 +63,11 @@ function LoginPage() {
           <p className="text-sm">Login to begin journey</p>
         </div>
         <div className="px-3 py-6 sm:px-10">
-          <form className="text-sm" onSubmit={(e) => loginHandle(e)}>
+          <form
+            className="text-sm"
+            // onSubmit={(e) => loginHandle(e)}
+            action={formAction}
+          >
             <div className="mb-5">
               <label htmlFor="email" className="text-gray-600">
                 Email
@@ -87,6 +98,9 @@ function LoginPage() {
                 required
               />
             </div>
+            <p className="text-[#e21c23] me-auto mb-5 hover:cursor-pointer w-fit">
+              {state?.message}
+            </p>
             <p className="text-[#e21c23] ms-auto mb-5 hover:cursor-pointer w-fit">
               Forgot password?
             </p>

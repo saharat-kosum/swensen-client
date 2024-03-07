@@ -15,6 +15,7 @@ export async function POST(request: Request) {
     } = await request.json();
 
     // check exist email
+    // you can change the query email to set email unique.
     const user = await prisma.users.findFirst({
       where: { email },
     });
@@ -33,7 +34,7 @@ export async function POST(request: Request) {
         gender,
       },
     });
-    return Response.json(registerUser,{ status: 201 });
+    return Response.json(registerUser, { status: 201 });
   } catch (error) {
     console.error("Create user error: ", error);
     return Response.json({ error: "Internal server error" }, { status: 500 });
