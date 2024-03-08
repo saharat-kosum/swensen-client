@@ -2,6 +2,7 @@ import { getJWTsecretKey } from "@/utils/auth";
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
@@ -13,10 +14,15 @@ export async function POST(request: Request) {
     });
 
     if (!user) {
-      return Response.json({ error: "User does not exist." }, { status: 404 });
+      return Response.json(
+        { error: "Invalid email or password." },
+        { status: 400 }
+      );
     }
 
-    if (user.password === password) {
+    const match = await bcrypt.compare(password, user.password);
+
+    if (match) {
       const token = jwt.sign(
         { id: user.id, email: user.email },
         getJWTsecretKey()
@@ -24,7 +30,10 @@ export async function POST(request: Request) {
       cookies().set("userToken", token);
       return Response.json(token);
     } else {
-      return Response.json({ error: "Invalid password." }, { status: 400 });
+      return Response.json(
+        { error: "Invalid email or password." },
+        { status: 400 }
+      );
     }
   } catch (error) {
     console.error("Log in failed: ", error);

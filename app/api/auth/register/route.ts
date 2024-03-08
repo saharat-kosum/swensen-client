@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
@@ -23,13 +24,15 @@ export async function POST(request: Request) {
       return Response.json({ error: "E-mail was used" }, { status: 409 });
     }
 
+    const hashPassword = await bcrypt.hash(password, 10);
+
     const registerUser = await prisma.users.create({
       data: {
         first_name,
         last_name,
         phone,
         email,
-        password,
+        password: hashPassword,
         date_of_birth,
         gender,
       },
