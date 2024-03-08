@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { UserType } from "../type";
+import { GenderType, UserType } from "../type";
 import Loading from "@/components/loading";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import SubmitBtn from "@/components/submitBtn";
+import { z } from "zod";
 
 const defaultFormData: UserType = {
   date_of_birth: null,
@@ -13,19 +15,36 @@ const defaultFormData: UserType = {
   last_name: "",
   email: "",
   password: "",
-  gender: "not-specified",
+  gender: GenderType.NotSpecified,
   phone: "",
-  create_ts: new Date(),
+};
+
+const defaultError = {
+  date_of_birth: "",
+  first_name: "",
+  last_name: "",
+  email: "",
+  password: "",
+  phone: "",
 };
 
 function RegisterPage() {
   const prefixURL = process.env.NEXT_PUBLIC_PREFIX_URL;
   const [registerData, setRegisterData] = useState<UserType>(defaultFormData);
+  const [errorMessage, setErrorMassage] = useState(defaultError);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const registerHandle = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const registerSchema = z.object({
+    date_of_birth: z.string().nullable(),
+    first_name: z.string().trim().min(1, "First name is required"),
+    last_name: z.string().trim().min(1, "Last name is required"),
+    email: z.string().email().trim().min(1, "Email is required"),
+    password: z.string().trim().min(1, "Password is required"),
+    phone: z.string().trim().min(1, "Phone is required"),
+  });
+
+  const registerHandle = async () => {
     try {
       setIsLoading(true);
       const response = await axios.post(
@@ -33,6 +52,7 @@ function RegisterPage() {
         registerData
       );
       if (response.status === 201) {
+        setErrorMassage(defaultError);
         Swal.fire({
           title: "Register Complete",
           icon: "success",
@@ -62,6 +82,58 @@ function RegisterPage() {
     }));
   };
 
+  const submitHandle = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const validate = registerSchema.safeParse(registerData);
+    if (!validate.success) {
+      for (const issue of validate.error.issues) {
+        const { path, message } = issue;
+        switch (path[0]) {
+          case "date_of_birth":
+            setErrorMassage((prev) => ({
+              ...prev,
+              date_of_birth: message,
+            }));
+            break;
+          case "first_name":
+            setErrorMassage((prev) => ({
+              ...prev,
+              first_name: message,
+            }));
+            break;
+          case "last_name":
+            setErrorMassage((prev) => ({
+              ...prev,
+              last_name: message,
+            }));
+            break;
+          case "password":
+            setErrorMassage((prev) => ({
+              ...prev,
+              password: message,
+            }));
+            break;
+          case "email":
+            setErrorMassage((prev) => ({
+              ...prev,
+              email: message,
+            }));
+            break;
+          case "phone":
+            setErrorMassage((prev) => ({
+              ...prev,
+              phone: message,
+            }));
+            break;
+          default:
+            break;
+        }
+      }
+    } else {
+      registerHandle();
+    }
+  };
+
   return (
     <main className="pt-[102px] lg:pt-[72px] grow max-w-[512px] mx-auto px-4">
       {isLoading && <Loading />}
@@ -71,7 +143,7 @@ function RegisterPage() {
           <p className="text-sm">Register to start your sweet journey</p>
         </div>
         <div className="px-3 py-6 sm:px-10">
-          <form className="text-sm" onSubmit={(e) => registerHandle(e)}>
+          <form className="text-sm" onSubmit={(e) => submitHandle(e)}>
             <div className="mb-5 flex gap-3">
               <div>
                 <label htmlFor="first_name" className="text-gray-600">
@@ -85,8 +157,10 @@ function RegisterPage() {
                   className="border-[1px] p-3 rounded-lg outline-0 text-gray-500 mt-2 w-full"
                   value={registerData.first_name}
                   onChange={(e) => changeHandle(e)}
-                  required
                 />
+                <p className="text-[#e21c23] me-auto hover:cursor-pointer w-fit p-1 text-xs">
+                  {errorMessage.first_name}
+                </p>
               </div>
               <div>
                 <label htmlFor="last_name" className="text-gray-600">
@@ -100,8 +174,10 @@ function RegisterPage() {
                   className="border-[1px] p-3 rounded-lg outline-0 text-gray-500 mt-2 w-full"
                   value={registerData.last_name}
                   onChange={(e) => changeHandle(e)}
-                  required
                 />
+                <p className="text-[#e21c23] me-auto hover:cursor-pointer w-fit p-1 text-xs">
+                  {errorMessage.last_name}
+                </p>
               </div>
             </div>
             <div className="mb-5">
@@ -117,8 +193,10 @@ function RegisterPage() {
                 className="border-[1px] p-3 rounded-lg outline-0 text-gray-500 mt-2 w-full"
                 value={registerData.phone}
                 onChange={(e) => changeHandle(e)}
-                required
               />
+              <p className="text-[#e21c23] me-auto hover:cursor-pointer w-fit p-1 text-xs">
+                {errorMessage.phone}
+              </p>
             </div>
             <div className="mb-5">
               <label htmlFor="email" className="text-gray-600">
@@ -132,8 +210,10 @@ function RegisterPage() {
                 className="border-[1px] p-3 rounded-lg outline-0 text-gray-500 mt-2 w-full"
                 value={registerData.email}
                 onChange={(e) => changeHandle(e)}
-                required
               />
+              <p className="text-[#e21c23] me-auto hover:cursor-pointer w-fit p-1 text-xs">
+                {errorMessage.email}
+              </p>
             </div>
             <p className="text-sm text-[#f5222d] mb-5">
               Please ensure you enter valid email address. The email cannot be
@@ -151,8 +231,10 @@ function RegisterPage() {
                 className="border-[1px] p-3 rounded-lg outline-0 text-gray-500 mt-2 w-full"
                 value={registerData.password}
                 onChange={(e) => changeHandle(e)}
-                required
               />
+              <p className="text-[#e21c23] me-auto hover:cursor-pointer w-fit p-1 text-xs">
+                {errorMessage.password}
+              </p>
             </div>
             <div className="mb-5">
               <label className="text-gray-600">Gender (optional)</label>
@@ -162,7 +244,7 @@ function RegisterPage() {
                   name="gender"
                   type="radio"
                   className="hidden"
-                  value={"male"}
+                  value={GenderType.Male}
                   onChange={(e) => changeHandle(e)}
                 />
                 <label
@@ -176,7 +258,7 @@ function RegisterPage() {
                   name="gender"
                   type="radio"
                   className="hidden"
-                  value={"female"}
+                  value={GenderType.Female}
                   onChange={(e) => changeHandle(e)}
                 />
                 <label
@@ -190,7 +272,7 @@ function RegisterPage() {
                   name="gender"
                   type="radio"
                   className="hidden"
-                  value={"not-specified"}
+                  value={GenderType.NotSpecified}
                   onChange={(e) => changeHandle(e)}
                 />
                 <label
@@ -213,6 +295,9 @@ function RegisterPage() {
                 value={registerData.date_of_birth || ""}
                 onChange={(e) => changeHandle(e)}
               />
+              <p className="text-[#e21c23] me-auto hover:cursor-pointer w-fit p-1 text-xs">
+                {errorMessage.date_of_birth}
+              </p>
             </div>
             <div className="mb-3 flex items-start">
               <input
@@ -258,12 +343,7 @@ function RegisterPage() {
                 from company&apos;s website.
               </label>
             </div>
-            <button
-              type="submit"
-              className="text-center w-full rounded-full h-12 bg-[#e21c23] text-white text-sm"
-            >
-              Register
-            </button>
+            <SubmitBtn pendingWord="Registering" notPendingWord="Register" />
           </form>
         </div>
       </div>

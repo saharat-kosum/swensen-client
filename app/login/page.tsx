@@ -6,7 +6,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { loginAction } from "./action";
 import { useFormState } from "react-dom";
-import SubmitBtn from "./submitBtn";
+import SubmitBtn from "../../components/submitBtn";
 
 const initialState = {
   email: "",
@@ -111,7 +111,7 @@ function LoginPage() {
             <p className="text-[#e21c23] ms-auto mb-5 hover:cursor-pointer w-fit">
               Forgot password?
             </p>
-            <SubmitBtn />
+            <SubmitBtn pendingWord="Loging in" notPendingWord="Login" />
           </form>
         </div>
       </div>

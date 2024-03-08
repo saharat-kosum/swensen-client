@@ -6,8 +6,8 @@ export interface UserType {
   email: string;
   password: string;
   date_of_birth: string | null;
-  gender: string;
-  create_ts: Date;
+  gender: GenderType;
+  create_ts?: Date;
 }
 
 export interface ProductType {
@@ -17,4 +17,10 @@ export interface ProductType {
   price: number;
   create_ts: Date;
   modify_ts: Date;
+}
+
+export enum GenderType {
+  NotSpecified = "not-specified",
+  Female = "female",
+  Male = "male",
 }
